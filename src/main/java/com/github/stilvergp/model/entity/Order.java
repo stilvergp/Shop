@@ -4,25 +4,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Order {
     private int id;
+    private String code;
     private Client client;
     private String address;
     private LocalDate orderDate;
     private boolean isCompleted;
-    private double price;
-    private List<OrderDetails> details;
+    private double totalPrice;
 
-    public Order(){}
+    public Order() {
+    }
 
     public Order(Client client, String address, LocalDate orderDate) {
+        this.code = UUID.randomUUID().toString().substring(0, 8);
         this.client = client;
         this.address = address;
         this.orderDate = orderDate;
         this.isCompleted = false;
-        this.price = calculateTotalPrice();
-        this.details = new ArrayList<>();
     }
 
     public int getId() {
@@ -31,6 +32,14 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Client getClient() {
@@ -65,52 +74,36 @@ public class Order {
         isCompleted = completed;
     }
 
-    public double getPrice() {
-        return price;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public List<OrderDetails> getDetails() {
-        return details;
-    }
-
-    public void setDetails(List<OrderDetails> details) {
-        this.details = details;
-    }
-
-    public double calculateTotalPrice() {
-        this.price = 0.0;
-        for (OrderDetails detail : details) {
-            this.price += detail.getTotalPrice();
-        }
-        return this.price;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id;
+        return Objects.equals(code, order.code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(code);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", code='" + code + '\'' +
                 ", client=" + client +
                 ", address='" + address + '\'' +
                 ", orderDate=" + orderDate +
                 ", isCompleted=" + isCompleted +
-                ", price=" + price +
-                ", details=" + details +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

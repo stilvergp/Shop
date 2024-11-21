@@ -4,24 +4,27 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Product {
     private int id;
+    private String code;
     private BufferedImage image;
     private String name;
     private double price;
     private int stock;
-    private List<OrderDetails> details;
+    private int quantity;
 
     public Product() {
     }
 
     public Product(BufferedImage image, String name, double price, int stock) {
+        this.code = UUID.randomUUID().toString().substring(0, 8);
         this.image = image;
         this.name = name;
         this.price = price;
         this.stock = stock;
-        this.details = new ArrayList<>();
+        this.quantity = 0;
     }
 
     public int getId() {
@@ -31,6 +34,15 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 
     public BufferedImage getImage() {
         return image;
@@ -64,35 +76,36 @@ public class Product {
         this.stock = stock;
     }
 
-    public List<OrderDetails> getDetails() {
-        return details;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setDetails(List<OrderDetails> details) {
-        this.details = details;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id;
+        return Objects.equals(code, product.code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(code);
     }
 
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", code='" + code + '\'' +
                 ", image=" + image +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
-                ", details=" + details +
+                ", quantity=" + quantity +
                 '}';
     }
 }

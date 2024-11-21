@@ -2,36 +2,38 @@ package com.github.stilvergp.model.dao;
 
 import com.github.stilvergp.model.connection.MySQLConnection;
 import com.github.stilvergp.model.entity.Client;
+import com.github.stilvergp.model.entity.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ClientDAO {
     private static final String INSERT = "INSERT into client(name,username,password,email,phone,isAdmin) VALUES(?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE client SET username=? WHERE id=?";
     private static final String FINDBYID = "SELECT id, name, username, password, email, phone, isAdmin FROM client WHERE username=?";
     private static final String DELETE = "DELETE FROM client WHERE id=?";
-    private Connection conn;
+    private final Connection conn;
 
     public ClientDAO() {
         conn = MySQLConnection.getConnection();
     }
 
-    public void add(Client entity) {
-        if (entity != null) {
-            String username = entity.getUsername();
+    public void add(Client client) {
+        if (client != null) {
+            String username = client.getUsername();
             if (username != null) {
                 Client isInDatabase = findById(username);
                 if (isInDatabase == null) {
                     try (PreparedStatement pst = conn.prepareStatement(INSERT)) {
-                        pst.setString(1, entity.getName());
-                        pst.setString(2, entity.getUsername());
-                        pst.setString(3, entity.getPassword());
-                        pst.setString(4, entity.getEmail());
-                        pst.setString(5, entity.getPhone());
-                        pst.setBoolean(6, entity.isAdmin());
+                        pst.setString(1, client.getName());
+                        pst.setString(2, client.getUsername());
+                        pst.setString(3, client.getPassword());
+                        pst.setString(4, client.getEmail());
+                        pst.setString(5, client.getPhone());
+                        pst.setBoolean(6, client.isAdmin());
                         pst.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -41,15 +43,15 @@ public class ClientDAO {
         }
     }
 
-    public void update(Client entity) {
-        if (entity != null) {
-            String username = entity.getUsername();
+    public void update(Client client) {
+        if (client != null) {
+            String username = client.getUsername();
             if (username != null) {
                 Client isInDatabase = findById(username);
                 if (isInDatabase == null) {
                     try (PreparedStatement pst = conn.prepareStatement(UPDATE)) {
-                        pst.setString(1, entity.getUsername());
-                        pst.setInt(2, entity.getId());
+                        pst.setString(1, client.getUsername());
+                        pst.setInt(2, client.getId());
                         pst.executeUpdate();
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -75,7 +77,6 @@ public class ClientDAO {
                     client.setAdmin(rs.getBoolean("isAdmin"));
                     result = client;
                 }
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,15 +84,24 @@ public class ClientDAO {
         return result;
     }
 
-    public void delete(Client entity) {
-        if (entity != null) {
+    public void delete(Client client) {
+        if (client != null) {
             try (PreparedStatement pst = conn.prepareStatement(DELETE)) {
-                pst.setInt(1, entity.getId());
+                pst.setInt(1, client.getId());
                 pst.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
-
+}
+class ClientLazy extends Client {
+    @Override
+    public List<Order> getOrders() {
+        if (super.getOrders() == null) {
+            OrderDAO dao = new OrderDAO();
+            setOrders(dao.findByClient(this));
+        }
+        return super.getOrders();
+    }
 }
