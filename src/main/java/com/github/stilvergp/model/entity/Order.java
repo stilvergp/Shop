@@ -1,10 +1,7 @@
 package com.github.stilvergp.model.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Order {
     private int id;
@@ -14,8 +11,13 @@ public class Order {
     private LocalDate orderDate;
     private boolean isCompleted;
     private double totalPrice;
+    private List<Product> products;
 
     public Order() {
+        this.code = UUID.randomUUID().toString().substring(0, 8);
+        this.isCompleted = false;
+        this.totalPrice = 0;
+        this.products = new ArrayList<>();
     }
 
     public Order(Client client, String address, LocalDate orderDate) {
@@ -24,6 +26,14 @@ public class Order {
         this.address = address;
         this.orderDate = orderDate;
         this.isCompleted = false;
+        this.totalPrice = 0;
+        this.products = new ArrayList<>();
+    }
+
+    public void calculateTotalPrice() {
+        for (Product product : products) {
+            totalPrice += product.getPrice();
+        }
     }
 
     public int getId() {
@@ -82,6 +92,14 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -104,6 +122,7 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", isCompleted=" + isCompleted +
                 ", totalPrice=" + totalPrice +
+                ", products=" + products +
                 '}';
     }
 }

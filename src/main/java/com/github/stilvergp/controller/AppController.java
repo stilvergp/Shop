@@ -2,6 +2,7 @@ package com.github.stilvergp.controller;
 
 import com.github.stilvergp.App;
 import com.github.stilvergp.model.Session;
+import com.github.stilvergp.model.connection.InitializeDatabase;
 import com.github.stilvergp.view.Scenes;
 import com.github.stilvergp.view.View;
 import javafx.fxml.FXML;
@@ -33,6 +34,10 @@ public class AppController extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) throws IOException {
+        InitializeDatabase initDb = new InitializeDatabase();
+        initDb.executeSqlFromFile(App.class.getResource("db.sql").getPath());
+        initDb.insertDefaultData();
+        initDb.closeConnection();
         changeScene(Scenes.LOGIN, null);
     }
 
@@ -40,7 +45,7 @@ public class AppController extends Controller implements Initializable {
      * Changes the current scene to the specified scene.
      *
      * @param scene the enum representing the scene to switch to.
-     * @param data additional data to pass to the new scene.
+     * @param data  additional data to pass to the new scene.
      * @throws IOException if an I/O error occurs.
      */
     public void changeScene(Scenes scene, Object data) throws IOException {
@@ -53,10 +58,10 @@ public class AppController extends Controller implements Initializable {
     /**
      * Opens a modal window with the specified scene and title.
      *
-     * @param scene the enum representing the scene to load in the modal.
-     * @param title the title of the modal window.
+     * @param scene  the enum representing the scene to load in the modal.
+     * @param title  the title of the modal window.
      * @param parent the parent controller of the new scene.
-     * @param data additional data to pass to the new scene.
+     * @param data   additional data to pass to the new scene.
      * @throws IOException if an I/O error occurs.
      */
     public void openModal(Scenes scene, String title, Controller parent, Object data) throws IOException {

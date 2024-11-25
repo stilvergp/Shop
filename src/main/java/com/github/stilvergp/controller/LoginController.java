@@ -48,8 +48,8 @@ public class LoginController extends Controller implements Initializable {
      * @throws IOException if an I/O error occurs.
      */
     public void goToMain() throws IOException {
-        Client client = new Client();
-        if (client != null && client.isMyPassword(Security.hashPassword(password.getText()))) {
+        Client client = new ClientDAO().findByUsername(username.getText());
+        if (client.isMyPassword(Security.hashPassword(password.getText()))) {
             login(client);
             App.currentController.changeScene(Scenes.MAIN, null);
         } else {

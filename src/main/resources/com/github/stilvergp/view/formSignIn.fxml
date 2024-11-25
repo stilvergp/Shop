@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="308.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.github.stilvergp.controller.FormSignInController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.stilvergp.controller.FormSignInController">
     <children>
-        <AnchorPane prefHeight="413.0" prefWidth="308.0">
+        <AnchorPane prefHeight="592.0" prefWidth="308.0">
             <children>
                 <Label layoutX="50.0" layoutY="74.0" text="Nombre:">
                     <font>
@@ -49,7 +49,13 @@
                 <Line endX="124.0" layoutX="159.0" layoutY="49.0" startX="-134.0" />
                 <PasswordField fx:id="password" layoutX="54.0" layoutY="218.0" prefHeight="25.0" prefWidth="213.0" promptText="Contraseña" />
                 <PasswordField fx:id="confirmPassword" layoutX="55.0" layoutY="277.0" prefHeight="25.0" prefWidth="213.0" promptText="Confirmar contraseña" />
-                <Button layoutX="112.0" layoutY="374.0" mnemonicParsing="false" onAction="#addUser" text="Crear cuenta" />
+                <Button layoutX="112.0" layoutY="438.0" mnemonicParsing="false" onAction="#addUser" text="Crear cuenta" />
+            <Label layoutX="51.0" layoutY="374.0" text="Teléfono:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="telephone" layoutX="53.0" layoutY="399.0" prefHeight="25.0" prefWidth="213.0" promptText="Teléfono" />
             </children>
         </AnchorPane>
     </children>

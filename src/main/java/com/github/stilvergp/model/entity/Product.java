@@ -1,8 +1,6 @@
 package com.github.stilvergp.model.entity;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,18 +11,17 @@ public class Product {
     private String name;
     private double price;
     private int stock;
-    private int quantity;
 
     public Product() {
+        this.code = UUID.randomUUID().toString().substring(0, 8);
     }
 
-    public Product(BufferedImage image, String name, double price, int stock) {
+    public Product(BufferedImage image, String name, double price,int stock) {
         this.code = UUID.randomUUID().toString().substring(0, 8);
         this.image = image;
         this.name = name;
         this.price = price;
         this.stock = stock;
-        this.quantity = 0;
     }
 
     public int getId() {
@@ -76,14 +73,6 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -105,7 +94,6 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
-                ", quantity=" + quantity +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.github.stilvergp.model.entity;
 
 import com.github.stilvergp.utils.Security;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,15 +17,16 @@ public class Client {
     private boolean isAdmin;
 
     public Client() {
+        this.isAdmin = false;
     }
 
-    public Client(String name, String username, String password, String email, String phone, List<Order> orders) {
+    public Client(String name, String username, String password, String email, String phone) {
         this.name = name;
         this.username = username;
         setPassword(password);
         this.email = email;
         this.phone = phone;
-        this.orders = orders;
+        this.orders = new ArrayList<>();
         this.isAdmin = false;
     }
 
@@ -57,7 +59,7 @@ public class Client {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Security.hashPassword(password);
     }
 
     public String getEmail() {
