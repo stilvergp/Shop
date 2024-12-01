@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="292.0" prefWidth="462.0" stylesheets="@css/buyProducts.css"
+      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.github.stilvergp.controller.BuyProductsController">
+    <children>
+        <Label fx:id="titleLabel" text="Dirección de Envio">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </Label>
+        <Line endX="250.0" startX="-100.0" strokeWidth="2.0">
+            <VBox.margin>
+                <Insets bottom="20.0"/>
+            </VBox.margin>
+        </Line>
+        <Label prefHeight="17.0" prefWidth="440.0" text="Dirección y numero">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="addressLine" prefHeight="25.0" prefWidth="496.0" promptText="Dirección y numero">
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </TextField>
+        <HBox prefHeight="0.0" prefWidth="426.0">
+            <children>
+                <Label prefHeight="30.0" prefWidth="132.0" text="Código Postal">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+                <Label prefHeight="30.0" prefWidth="92.0" text="Localidad">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="426.0">
+            <children>
+                <TextField fx:id="postalCode" prefHeight="29.0" prefWidth="131.0" promptText="Código Postal">
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                </TextField>
+                <TextField fx:id="city" prefHeight="25.0" prefWidth="115.0" promptText="Localidad">
+                    <HBox.margin>
+                        <Insets left="15.0"/>
+                    </HBox.margin>
+                </TextField>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" top="5.0"/>
+            </VBox.margin>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="426.0">
+            <children>
+                <Label prefHeight="17.0" prefWidth="380.0" text="Provincia">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+                <Label prefHeight="17.0" prefWidth="369.0" text="País">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <HBox prefHeight="0.0" prefWidth="426.0">
+            <children>
+                <TextField fx:id="province" prefHeight="25.0" prefWidth="496.0" promptText="Provincia">
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                </TextField>
+                <TextField fx:id="country" prefHeight="25.0" prefWidth="496.0" promptText="País">
+                    <HBox.margin>
+                        <Insets left="5.0"/>
+                    </HBox.margin>
+                </TextField>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <Label fx:id="totalPriceLabel" prefHeight="17.0" prefWidth="440.0">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <Button mnemonicParsing="false" onAction="#buyProducts" text="Realizar pedido"/>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+</VBox>

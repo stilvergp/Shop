@@ -1,0 +1,67 @@
+.root {
+    -fx-background-color: #f8f9fa;
+}
+
+.label {
+    -fx-text-fill: #343a40;
+}
+
+.label > .text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#titleLabel {
+    -fx-font-size: 32px;
+}
+
+.button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #218838;
+}
+
+.button:pressed {
+    -fx-background-color: #1e7e34;
+}
+
+.text-field {
+    -fx-border-color: #28a745;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #218838;
+}
+
+.line {
+    -fx-stroke: #28a745;
+}
+
+.hbox {
+    -fx-spacing: 10px;
+}
+
+.hbox .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.hbox .text-field {
+    -fx-pref-width: 120px;
+}
+
+.button:focused {
+    -fx-background-color: #218838;
+}

@@ -1,6 +1,7 @@
 package com.github.stilvergp.model.connection;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -37,11 +38,6 @@ public class InitializeDatabase {
         }
     }
 
-    /**
-     * Executes a single SQL command.
-     *
-     * @param sql The SQL command to execute.
-     */
     private void executeCommand(String sql) {
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.executeUpdate();
@@ -59,16 +55,24 @@ public class InitializeDatabase {
         }
     }
 
-    /**
-     * Closes the database connection.
-     */
     public void closeConnection() {
         try {
             if (conn != null) {
                 conn.close();
+                File file = new File("initialized.txt");
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isDatabaseInitialized() {
+        File file = new File("initialized.txt");
+        return file.exists();
     }
 }

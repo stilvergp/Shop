@@ -15,8 +15,9 @@ import java.util.List;
 
 public class ProductDAO {
     private static final String INSERT = "INSERT INTO Product(code, image, name, price, stock) VALUES(?,?,?,?,?)";
-    private static final String UPDATE = "UPDATE Product SET price=? WHERE code=?";
-    private static final String FINDALL = "SELECT * FROM Product";
+    private static final String UPDATEPRICE = "UPDATE Product SET price=? WHERE code=?";
+    private static final String UPDATESTOCK = "UPDATE Product SET stock=? WHERE code=?";
+    private static final String FINDALL = "SELECT * FROM Product WHERE stock > 0";
     private static final String FINDBYID = "SELECT * from Product WHERE code = ?";
     private static final String FINDPRODUCTSBYORDER = "SELECT p.id, p.code,p.image, p.name, p.price, p.stock " +
             "FROM Product p INNER JOIN Order_Product op ON p.id = op.product_id WHERE op.order_id = ?";
@@ -53,13 +54,13 @@ public class ProductDAO {
         }
     }
 
-    public void update(Product product) {
+    public void updatePrice(Product product) {
         if (product != null) {
             String code = product.getCode();
             if (code != null) {
                 Product isInDatabase = findById(code);
                 if (isInDatabase == null) {
-                    try (PreparedStatement pst = conn.prepareStatement(UPDATE)) {
+                    try (PreparedStatement pst = conn.prepareStatement(UPDATEPRICE)) {
                         pst.setDouble(1, product.getPrice());
                         pst.setString(2, product.getCode());
                         pst.executeUpdate();
@@ -71,7 +72,25 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> findAll() {
+    public void updateStock(Product product) {
+        if (product != null) {
+            String code = product.getCode();
+            if (code != null) {
+                Product isInDatabase = findById(code);
+                if (isInDatabase == null) {
+                    try (PreparedStatement pst = conn.prepareStatement(UPDATESTOCK)) {
+                        pst.setInt(1, product.getStock());
+                        pst.setString(2, product.getCode());
+                        pst.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    public List<Product> findAllAvailable() {
         List<Product> products = new ArrayList<>();
         try (PreparedStatement pst = conn.prepareStatement(FINDALL)) {
             try (ResultSet rs = pst.executeQuery()) {
@@ -183,4 +202,5 @@ public class ProductDAO {
         }
         return bais;
     }
+
 }

@@ -9,6 +9,7 @@ public class Order {
     private Client client;
     private String address;
     private LocalDate orderDate;
+    private LocalDate deliveryDate;
     private boolean isCompleted;
     private double totalPrice;
     private List<Product> products;
@@ -20,11 +21,12 @@ public class Order {
         this.products = new ArrayList<>();
     }
 
-    public Order(Client client, String address, LocalDate orderDate) {
+    public Order(Client client, String address) {
         this.code = UUID.randomUUID().toString().substring(0, 8);
         this.client = client;
         this.address = address;
-        this.orderDate = orderDate;
+        this.orderDate = LocalDate.now();
+        this.deliveryDate = LocalDate.now().plusDays(new Random().nextInt(1, 10));
         this.isCompleted = false;
         this.totalPrice = 0;
         this.products = new ArrayList<>();
@@ -70,6 +72,14 @@ public class Order {
 
     public LocalDate getOrderDate() {
         return orderDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
     }
 
     public void setOrderDate(LocalDate orderDate) {
@@ -120,6 +130,7 @@ public class Order {
                 ", client=" + client +
                 ", address='" + address + '\'' +
                 ", orderDate=" + orderDate +
+                ", deliveryDate=" + deliveryDate +
                 ", isCompleted=" + isCompleted +
                 ", totalPrice=" + totalPrice +
                 ", products=" + products +

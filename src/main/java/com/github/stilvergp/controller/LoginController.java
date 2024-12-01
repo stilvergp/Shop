@@ -49,7 +49,7 @@ public class LoginController extends Controller implements Initializable {
      */
     public void goToMain() throws IOException {
         Client client = new ClientDAO().findByUsername(username.getText());
-        if (client.isMyPassword(Security.hashPassword(password.getText()))) {
+        if (client != null && client.isMyPassword(Security.hashPassword(password.getText()))) {
             login(client);
             App.currentController.changeScene(Scenes.MAIN, null);
         } else {

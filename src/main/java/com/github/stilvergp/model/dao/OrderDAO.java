@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
-    private static final String INSERT = "INSERT INTO `Order`(code, client_id, address, orderDate, isCompleted, totalPrice) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO `Order`(code, client_id, address, orderDate, deliveryDate, isCompleted, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE `Order` SET address = ? WHERE code = ?";
-    private static final String FINDBYID = "SELECT * FROM `Order` WHERE code = ?";
-    private static final String FINDBYCLIENT = "SELECT * FROM `Order` WHERE client_id = ?";
-    private static final String DELETE = "DELETE FROM `Order` WHERE code = ?";
+    private static final String FINDBYID = "SELECT * FROM `Order` WHERE code = ? AND isCompleted = false";
+    private static final String FINDBYCLIENT = "SELECT * FROM `Order` WHERE client_id = ? AND isCompleted = false";
+    private static final String CANCEL = "UPDATE `Order` SET isCompleted = ? WHERE code = ?";
     private static final String INSERTORDERPRODUCT = "INSERT INTO Order_Product(order_id, product_id) VALUES (?, ?)";
     private static final String FINDBYORDERPRODUCT = "SELECT * FROM Order_Product WHERE order_id = ? AND product_id = ?";
     private final Connection conn;
@@ -34,8 +34,9 @@ public class OrderDAO {
                         pst.setInt(2, order.getClient().getId());
                         pst.setString(3, order.getAddress());
                         pst.setDate(4, Date.valueOf(order.getOrderDate()));
-                        pst.setBoolean(5, order.isCompleted());
-                        pst.setDouble(6, order.getTotalPrice());
+                        pst.setDate(5, Date.valueOf(order.getDeliveryDate()));
+                        pst.setBoolean(6, order.isCompleted());
+                        pst.setDouble(7, order.getTotalPrice());
                         pst.executeUpdate();
                         try (ResultSet rs = pst.getGeneratedKeys()) {
                             if (rs.next()) {
@@ -58,7 +59,7 @@ public class OrderDAO {
             int orderId = order.getId();
             int productId = product.getId();
             if (orderId > 0 && productId > 0) {
-                try (PreparedStatement checkPst = conn.prepareStatement(FINDBYORDERPRODUCT)){
+                try (PreparedStatement checkPst = conn.prepareStatement(FINDBYORDERPRODUCT)) {
                     checkPst.setInt(1, orderId);
                     checkPst.setInt(2, productId);
                     try (ResultSet rs = checkPst.executeQuery()) {
@@ -107,6 +108,7 @@ public class OrderDAO {
                     order.setClient(new ClientDAO().findById(rs.getInt("client_id")));
                     order.setAddress(rs.getString("address"));
                     order.setOrderDate((rs.getDate("orderDate").toLocalDate()));
+                    order.setDeliveryDate((rs.getDate("deliveryDate").toLocalDate()));
                     order.setCompleted(rs.getBoolean("isCompleted"));
                     order.setTotalPrice(rs.getDouble("totalPrice"));
                     order.setProducts(new ProductDAO().findByOrder(order.getId()));
@@ -131,6 +133,7 @@ public class OrderDAO {
                     order.setClient(client);
                     order.setAddress(rs.getString("address"));
                     order.setOrderDate((rs.getDate("orderDate").toLocalDate()));
+                    order.setDeliveryDate((rs.getDate("deliveryDate").toLocalDate()));
                     order.setCompleted(rs.getBoolean("isCompleted"));
                     order.setTotalPrice(rs.getDouble("totalPrice"));
                     order.setProducts(new ProductDAO().findByOrder(order.getId()));
@@ -143,10 +146,11 @@ public class OrderDAO {
         return result;
     }
 
-    public void delete(Order order) {
+    public void cancel(Order order) {
         if (order != null) {
-            try (PreparedStatement pst = conn.prepareStatement(DELETE)) {
-                pst.setString(1, order.getCode());
+            try (PreparedStatement pst = conn.prepareStatement(CANCEL)) {
+                pst.setBoolean(1, order.isCompleted());
+                pst.setString(2, order.getCode());
                 pst.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

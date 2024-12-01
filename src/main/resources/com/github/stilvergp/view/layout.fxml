@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.github.stilvergp.controller.AppController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/layout.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.stilvergp.controller.AppController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu fx:id="account" mnemonicParsing="false" text="Cuenta" visible="false">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#logOff" text="Cerrar sesión" />
-                    </items>
-                </Menu>
-            </menus>
+            <Menu id="cuenta" fx:id="account" mnemonicParsing="false" text="Cuenta">
+                <MenuItem mnemonicParsing="false" onAction="#logOff" text="Cerrar sesión" />
+            </Menu>
         </MenuBar>
     </top>
 </BorderPane>

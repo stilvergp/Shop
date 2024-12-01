@@ -2,7 +2,6 @@ package com.github.stilvergp.model.entity;
 
 import java.awt.image.BufferedImage;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Product {
     private int id;
@@ -13,11 +12,10 @@ public class Product {
     private int stock;
 
     public Product() {
-        this.code = UUID.randomUUID().toString().substring(0, 8);
     }
 
-    public Product(BufferedImage image, String name, double price,int stock) {
-        this.code = UUID.randomUUID().toString().substring(0, 8);
+    public Product(String code, BufferedImage image, String name, double price, int stock) {
+        this.code = code;
         this.image = image;
         this.name = name;
         this.price = price;

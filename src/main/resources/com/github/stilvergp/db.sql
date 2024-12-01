@@ -17,15 +17,16 @@ CREATE TABLE if not exists `Order` (
     client_id INT NOT NULL,
     address VARCHAR(255) NOT NULL,
     orderDate DATE NOT NULL,
+    deliveryDate DATE NOT NULL,
     isCompleted BOOLEAN,
-    totalPrice DECIMAL(10, 2),
+    totalPrice DECIMAL(5, 2),
     FOREIGN KEY (client_id) REFERENCES Client(id) ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists Product (
     id INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(50) NOT NULL UNIQUE,
-    image BLOB,
+    image LONGBLOB,
     name VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL

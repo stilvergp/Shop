@@ -4,7 +4,12 @@ public enum Scenes {
     ROOT("view/layout.fxml"),
     MAIN("view/main.fxml"),
     LOGIN("view/login.fxml"),
-    FORMSIGNIN("view/formSignIn.fxml");
+    FORMSIGNIN("view/formSignIn.fxml"),
+    MYORDERS("view/myOrders.fxml"),
+    MYORDERPRODUCTS("view/myOrderProducts.fxml"),
+    BUYPRODUCTS("view/buyProducts.fxml"),
+    ADDPRODUCT("view/addProduct.fxml"),
+    DELETEPRODUCT("view/deleteProduct.fxml");
 
     private String url;
 

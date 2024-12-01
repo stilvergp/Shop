@@ -1,0 +1,54 @@
+.root {
+    -fx-background-color: #f8f9fa;
+}
+
+.button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #218838;
+}
+
+.button:pressed {
+    -fx-background-color: #1e7e34;
+}
+
+.label {
+    -fx-text-fill: #333;
+}
+
+.label > .text {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-border-color: #28a745;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #218838;
+}
+
+.image-view {
+    -fx-border-color: #28a745;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.image-view {
+    -fx-background-color: #f1f1f1;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ddd;
+}

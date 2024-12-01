@@ -1,0 +1,40 @@
+.root {
+    -fx-background-color: #f8f9fa;
+}
+
+#titleLabel {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #343a40;
+}
+
+.label > .text {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #343a40;
+}
+
+.text-field, .password-field {
+    -fx-border-color: #28a745;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #218838;
+}
+
+.button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 4px;
+}
+
+.button:hover {
+    -fx-background-color: #218838;
+}

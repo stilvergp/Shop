@@ -22,9 +22,6 @@ import java.util.ResourceBundle;
 public class AppController extends Controller implements Initializable {
 
     @FXML
-    private Menu export;
-
-    @FXML
     private Menu account;
 
     @FXML
@@ -35,9 +32,11 @@ public class AppController extends Controller implements Initializable {
     @Override
     public void onOpen(Object input) throws IOException {
         InitializeDatabase initDb = new InitializeDatabase();
-        initDb.executeSqlFromFile(App.class.getResource("db.sql").getPath());
-        initDb.insertDefaultData();
-        initDb.closeConnection();
+        if (!initDb.isDatabaseInitialized()) {
+            initDb.executeSqlFromFile(App.class.getResource("db.sql").getPath());
+            initDb.insertDefaultData();
+            initDb.closeConnection();
+        }
         changeScene(Scenes.LOGIN, null);
     }
 
@@ -49,6 +48,7 @@ public class AppController extends Controller implements Initializable {
      * @throws IOException if an I/O error occurs.
      */
     public void changeScene(Scenes scene, Object data) throws IOException {
+        account.setVisible(Session.getInstance().isLoggedIn());
         View view = loadFXML(scene);
         borderPane.setCenter(view.scene);
         this.centerController = view.controller;
