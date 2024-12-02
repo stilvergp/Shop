@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" prefHeight="515.0" prefWidth="604.0" spacing="20.0" stylesheets="@css/main.css"
-      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.github.stilvergp.controller.MainController">
     <children>
         <HBox alignment="CENTER" prefHeight="7.0" prefWidth="564.0">
@@ -22,7 +22,8 @@
             <children>
                 <TextField fx:id="searchBox" layoutX="115.0" layoutY="4.0" prefHeight="25.0" prefWidth="173.0"
                            promptText="Buscar productos" AnchorPane.leftAnchor="115.0"/>
-                <Button fx:id="clientButton" layoutX="483.0" mnemonicParsing="false" onAction="#myOrders" text="Mis Pedidos"
+                <Button fx:id="clientButton" layoutX="483.0" mnemonicParsing="false" onAction="#myOrders"
+                        text="Mis Pedidos"
                         AnchorPane.rightAnchor="0.0"/>
                 <Label layoutY="14.0" text="Buscar productos:" AnchorPane.leftAnchor="0.0">
                 </Label>

@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox stylesheets="@css/myOrderProducts.css" alignment="CENTER" prefHeight="515.0" prefWidth="604.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.stilvergp.controller.MyOrderProductsController">
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.github.stilvergp.controller.MyOrderProductsController">
     <children>
         <HBox alignment="CENTER" prefHeight="7.0" prefWidth="564.0">
             <children>

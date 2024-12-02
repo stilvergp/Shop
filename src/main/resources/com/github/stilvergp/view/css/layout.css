@@ -9,6 +9,10 @@
     -fx-border-width: 0 0 2px 0;
 }
 
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
 .menu {
     -fx-background-color: #343a40;
     -fx-text-fill: white;
@@ -26,13 +30,17 @@
     -fx-padding: 10px 20px;
 }
 
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
 .menu-item:hover {
     -fx-background-color: #218838;
     -fx-text-fill: white;
 }
 
-.menu-item:disabled {
-    -fx-text-fill: #6c757d;
+.menu-item:hover .label {
+    -fx-text-fill: white;
 }
 
 .menu:focused {

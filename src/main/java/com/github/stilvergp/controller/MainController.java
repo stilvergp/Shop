@@ -8,12 +8,14 @@ import com.github.stilvergp.model.entity.Order;
 import com.github.stilvergp.model.entity.Product;
 import com.github.stilvergp.utils.Alerts;
 import com.github.stilvergp.view.Scenes;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -96,9 +98,24 @@ public class MainController extends Controller implements Initializable {
 
     public void reloadProductsFromDatabase() {
         ProductDAO productDAO = new ProductDAO();
-        this.products = FXCollections.observableArrayList(productDAO.findAllAvailable());
-        tableView.setItems(this.products);
-        selectedProducts.clear();
+        Task<ObservableList<Product>> loadProductsTask = new Task<>() {
+            @Override
+            protected ObservableList<Product> call() {
+                List<Product> productList = productDAO.findAllAvailable();
+                return FXCollections.observableArrayList(productList);
+            }
+        };
+
+        loadProductsTask.setOnSucceeded(_ -> {
+            products = loadProductsTask.getValue();
+            tableView.setItems(products);
+            selectedProducts.clear();
+        });
+
+        loadProductsTask.setOnFailed(_ -> Alerts.showErrorAlert("Error al cargar los productos",
+                "No se pudieron cargar los productos."));
+
+        new Thread(loadProductsTask).start();
     }
 
     public void addProduct() throws IOException {
@@ -170,10 +187,13 @@ public class MainController extends Controller implements Initializable {
                     imageView.setImage(null);
                     setGraphic(null);
                 } else {
-                    imageView.setImage(image);
-                    imageView.setFitHeight(100);
-                    imageView.setFitWidth(150);
                     setGraphic(imageView);
+                    setItem(image);
+                    Platform.runLater(() -> {
+                        imageView.setImage(image);
+                        imageView.setFitHeight(100);
+                        imageView.setFitWidth(150);
+                    });
                 }
             }
         });
@@ -187,7 +207,7 @@ public class MainController extends Controller implements Initializable {
                 product.setPrice(event.getNewValue());
                 ProductDAO productDAO = new ProductDAO();
                 productDAO.updatePrice(product);
-                reloadProductsFromDatabase();
+                tableView.refresh();
             } else {
                 Alerts.showErrorAlert("Error de cambio de precio de producto",
                         "El precio introducido es mayor al precio permitido");
@@ -202,7 +222,7 @@ public class MainController extends Controller implements Initializable {
                 product.setStock(event.getNewValue());
                 ProductDAO productDAO = new ProductDAO();
                 productDAO.updateStock(product);
-                reloadProductsFromDatabase();
+                tableView.refresh();
             } else {
                 Alerts.showErrorAlert("Error de cambio de stock de producto",
                         "El numero introducido es mayor de lo permitido");

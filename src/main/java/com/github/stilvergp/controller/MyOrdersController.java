@@ -20,6 +20,8 @@ import javafx.util.converter.DoubleStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyOrdersController extends Controller implements Initializable {
@@ -45,6 +47,7 @@ public class MyOrdersController extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) {
+        completeDeliveredOrders();
         reloadOrdersFromDatabase();
     }
 
@@ -52,8 +55,22 @@ public class MyOrdersController extends Controller implements Initializable {
         return order;
     }
 
+    private void completeDeliveredOrders() {
+        LocalDate date = LocalDate.now();
+        List<Order> toRemove = new ArrayList<>();
+        for (Order order : Session.getInstance().getLoggedInClient().getOrders()) {
+            if (order.getDeliveryDate().isBefore(date) || order.getDeliveryDate().isEqual(date)) {
+                OrderDAO dao = new OrderDAO();
+                order.setCompleted(true);
+                dao.complete(order);
+                toRemove.add(order);
+            }
+        }
+        Session.getInstance().getLoggedInClient().getOrders().removeAll(toRemove);
+    }
+
     private void reloadOrdersFromDatabase() {
-        ObservableList<Order> orders = FXCollections.observableArrayList(new OrderDAO().findByClient(Session.getInstance().getLoggedInClient()));
+        ObservableList<Order> orders = FXCollections.observableArrayList(Session.getInstance().getLoggedInClient().getOrders());
         tableView.setItems(orders);
     }
 
@@ -117,7 +134,7 @@ public class MyOrdersController extends Controller implements Initializable {
                             "¿Está totalmente seguro de esta acción?").showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     order.setCompleted(true);
-                    new OrderDAO().cancel(order);
+                    new OrderDAO().complete(order);
                     reloadOrdersFromDatabase();
                 }
             });

@@ -78,6 +78,7 @@ public class BuyProductsController extends Controller implements Initializable {
 
     private void saveAndCloseWindow(Order order, Event event) {
         this.controller.saveOrder(order);
+        Session.getInstance().getLoggedInClient().getOrders().add(order);
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 

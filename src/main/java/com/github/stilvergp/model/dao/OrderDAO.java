@@ -14,7 +14,7 @@ public class OrderDAO {
     private static final String UPDATE = "UPDATE `Order` SET address = ? WHERE code = ?";
     private static final String FINDBYID = "SELECT * FROM `Order` WHERE code = ? AND isCompleted = false";
     private static final String FINDBYCLIENT = "SELECT * FROM `Order` WHERE client_id = ? AND isCompleted = false";
-    private static final String CANCEL = "UPDATE `Order` SET isCompleted = ? WHERE code = ?";
+    private static final String COMPLETED = "UPDATE `Order` SET isCompleted = ? WHERE code = ?";
     private static final String INSERTORDERPRODUCT = "INSERT INTO Order_Product(order_id, product_id) VALUES (?, ?)";
     private static final String FINDBYORDERPRODUCT = "SELECT * FROM Order_Product WHERE order_id = ? AND product_id = ?";
     private final Connection conn;
@@ -146,9 +146,9 @@ public class OrderDAO {
         return result;
     }
 
-    public void cancel(Order order) {
+    public void complete(Order order) {
         if (order != null) {
-            try (PreparedStatement pst = conn.prepareStatement(CANCEL)) {
+            try (PreparedStatement pst = conn.prepareStatement(COMPLETED)) {
                 pst.setBoolean(1, order.isCompleted());
                 pst.setString(2, order.getCode());
                 pst.executeUpdate();

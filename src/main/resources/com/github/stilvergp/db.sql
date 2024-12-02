@@ -1,3 +1,5 @@
+SET GLOBAL max_allowed_packet=16777216;
+
 CREATE DATABASE if not exists Shop;
 USE Shop;
 

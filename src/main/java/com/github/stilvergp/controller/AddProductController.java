@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddProductController extends Controller implements Initializable {
 
@@ -60,6 +63,10 @@ public class AddProductController extends Controller implements Initializable {
             Alerts.showErrorAlert("Error al añadir el producto", "el código debe tener una longitud de 8 caracteres");
         } else if (roomImage == null) {
             Alerts.showErrorAlert("Error al añadir el producto", "debe añadir una imagen al producto");
+        } else if (!isPriceValid(price.getText())) {
+            Alerts.showErrorAlert("Error al añadir el producto", "el precio debe ser un decimal");
+        } else if (!isStockValid(stock.getText())) {
+            Alerts.showErrorAlert("Error al añadir el producto", "el stock debe ser un numero entero");
         } else {
             ProductDAO productDAO = new ProductDAO();
             Product productExists = productDAO.findById(code.getText());
@@ -75,6 +82,20 @@ public class AddProductController extends Controller implements Initializable {
                 Alerts.showErrorAlert("Error al añadir el producto", "El producto ya existe");
             }
         }
+    }
+
+    private boolean isPriceValid(String price) {
+        String regex = "\\d+\\.\\d+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(price);
+        return matcher.matches();
+    }
+
+    private boolean isStockValid(String stock) {
+        String regex = "\\d+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(stock);
+        return matcher.matches();
     }
 
     private boolean areFieldsEmpty() {
