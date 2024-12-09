@@ -1,70 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" prefHeight="515.0" prefWidth="604.0" spacing="20.0" stylesheets="@css/main.css"
-      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
       fx:controller="com.github.stilvergp.controller.MainController">
-    <children>
-        <HBox alignment="CENTER" prefHeight="7.0" prefWidth="564.0">
-            <children>
-                <Label text="Lista de Productos">
-                    <font>
-                        <Font name="System Bold" size="24.0"/>
-                    </font>
-                </Label>
-            </children>
-        </HBox>
-        <AnchorPane prefHeight="23.0" prefWidth="564.0">
-            <children>
-                <TextField fx:id="searchBox" layoutX="115.0" layoutY="4.0" prefHeight="25.0" prefWidth="173.0"
-                           promptText="Buscar productos" AnchorPane.leftAnchor="115.0"/>
-                <Button fx:id="clientButton" layoutX="483.0" mnemonicParsing="false" onAction="#myOrders"
-                        text="Mis Pedidos"
-                        AnchorPane.rightAnchor="0.0"/>
-                <Label layoutY="14.0" text="Buscar productos:" AnchorPane.leftAnchor="0.0">
-                </Label>
-            </children>
-        </AnchorPane>
-        <TableView fx:id="tableView">
-            <columns>
-                <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Codigo" visible="false"/>
-                <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Foto"/>
-                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre"/>
-                <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Precio"/>
-                <TableColumn fx:id="stockColumn" prefWidth="75.0" text="Stock" visible="false"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-        <HBox fx:id="clientHBox" alignment="CENTER" prefHeight="0.0" prefWidth="564.0">
-            <children>
-                <Button mnemonicParsing="false" onAction="#buyProducts" text="Comprar productos"/>
-            </children>
-        </HBox>
-        <HBox fx:id="adminHBox" alignment="CENTER" disable="true" prefHeight="0.0" prefWidth="564.0" visible="false">
-            <children>
-                <Button mnemonicParsing="false" onAction="#addProduct" text="Añadir Producto">
-                    <HBox.margin>
-                        <Insets right="5.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button mnemonicParsing="false" onAction="#deleteProduct" text="Eliminar Producto">
-                    <HBox.margin>
-                        <Insets left="5.0"/>
-                    </HBox.margin>
-                </Button>
-            </children>
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
-        </HBox>
-    </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+    <HBox alignment="CENTER" prefHeight="7.0" prefWidth="564.0">
+        <Label text="Lista de Productos">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+    </HBox>
+    <AnchorPane prefHeight="23.0" prefWidth="564.0">
+        <TextField fx:id="searchBox" layoutX="115.0" layoutY="4.0" prefHeight="25.0" prefWidth="173.0"
+                   promptText="Buscar productos" AnchorPane.leftAnchor="115.0"/>
+        <Button fx:id="clientButton" layoutX="483.0" mnemonicParsing="false" onAction="#myOrders"
+                text="Mis Pedidos" AnchorPane.rightAnchor="0.0"/>
+        <Label layoutY="14.0" text="Buscar productos:" AnchorPane.leftAnchor="0.0">
+        </Label>
+    </AnchorPane>
+    <TableView fx:id="tableView">
+        <columns>
+            <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Codigo" visible="false"/>
+            <TableColumn fx:id="imageColumn" prefWidth="75.0" text="Foto"/>
+            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre"/>
+            <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Precio"/>
+            <TableColumn fx:id="stockColumn" prefWidth="75.0" text="Stock" visible="false"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+    <HBox fx:id="clientHBox" alignment="CENTER" prefHeight="0.0" prefWidth="564.0">
+        <Button mnemonicParsing="false" onAction="#buyProducts" text="Comprar productos"/>
+    </HBox>
+    <HBox fx:id="adminHBox" alignment="CENTER" disable="true" prefHeight="0.0" prefWidth="564.0" visible="false">
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+        <Button mnemonicParsing="false" onAction="#addProduct" text="Añadir Producto">
+            <HBox.margin>
+                <Insets right="5.0"/>
+            </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#deleteProduct" text="Eliminar Producto">
+            <HBox.margin>
+                <Insets left="5.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
 </VBox>

@@ -11,83 +11,71 @@
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="402.0" prefWidth="418.0" stylesheets="@css/addProduct.css" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml" fx:controller="com.github.stilvergp.controller.AddProductController">
-    <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <ImageView fx:id="imageView" fitHeight="117.0" fitWidth="192.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </ImageView>
-                <Button mnemonicParsing="false" onAction="#getImage" text="Seleccionar imagen">
-                    <HBox.margin>
-                        <Insets left="10.0"/>
-                    </HBox.margin>
-                </Button>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <Label text="Código:"/>
-                <TextField fx:id="code" prefHeight="25.0" prefWidth="225.0"
-                           promptText="Introduce el código del producto">
-                    <HBox.margin>
-                        <Insets left="10.0"/>
-                    </HBox.margin>
-                </TextField>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <Label text="Nombre:"/>
-                <TextField fx:id="name" prefHeight="25.0" prefWidth="225.0"
-                           promptText="Introduce el nombre del producto">
-                    <HBox.margin>
-                        <Insets left="10.0"/>
-                    </HBox.margin>
-                </TextField>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <Label text="Precio:"/>
-                <TextField fx:id="price" prefHeight="25.0" prefWidth="225.0" promptText="Introduce el precio">
-                    <HBox.margin>
-                        <Insets left="10.0"/>
-                    </HBox.margin>
-                </TextField>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <Label text="Stock:"/>
-                <TextField fx:id="stock" prefHeight="25.0" prefWidth="225.0" promptText="Introduce el stock">
-                    <HBox.margin>
-                        <Insets left="10.0"/>
-                    </HBox.margin>
-                </TextField>
-            </children>
-            <VBox.margin>
-                <Insets bottom="10.0"/>
-            </VBox.margin>
-        </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0"/>
-        <Button mnemonicParsing="false" onAction="#addProduct" text="Añadir"/>
-    </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
+        <ImageView fx:id="imageView" fitHeight="117.0" fitWidth="192.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </ImageView>
+        <Button mnemonicParsing="false" onAction="#getImage" text="Seleccionar imagen">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
+        <Label text="Código:"/>
+        <TextField fx:id="code" prefHeight="25.0" prefWidth="225.0"
+                   promptText="Introduce el código del producto">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
+        <Label text="Nombre:"/>
+        <TextField fx:id="name" prefHeight="25.0" prefWidth="225.0"
+                   promptText="Introduce el nombre del producto">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
+        <Label text="Precio:"/>
+        <TextField fx:id="price" prefHeight="25.0" prefWidth="225.0" promptText="Introduce el precio">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
+        <Label text="Stock:"/>
+        <TextField fx:id="stock" prefHeight="25.0" prefWidth="225.0" promptText="Introduce el stock">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0"/>
+    <Button mnemonicParsing="false" onAction="#addProduct" text="Añadir"/>
 </VBox>
